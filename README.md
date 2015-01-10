@@ -3,8 +3,8 @@ C++ Generic Delegates implementation using variadic templates
 
 In this implementation I tried to make it:
 - Generic as much as possible.
-- Readable syntax and well commented [not complete].
-- well designed [not complete].
+- Readable syntax and well commented [incomplete].
+- well designed [incomplete].
 
 Examples are included in the .cpp file.
 
