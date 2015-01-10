@@ -8,6 +8,6 @@ In this implementation I tried to make it:
 
 Examples are included in the .cpp file.
 
-This implementation is explined [here](https://anasmehassab.wordpress.com/2015/01/05/generic-delegates-c-implementation/) and it's inspired from [this blog post][http://blog.coldflake.com/posts/C++-delegates-on-steroids/
+This implementation is explined [here](https://anasmehassab.wordpress.com/2015/01/05/generic-delegates-c-implementation/) and it's inspired from [this blog post](http://blog.coldflake.com/posts/C++-delegates-on-steroids/)
 
 
