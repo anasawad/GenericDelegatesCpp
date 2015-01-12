@@ -1,8 +1,10 @@
+/************************************************************************/
+/* Generic Delegates Implementation using variadic templates			*/
+/************************************************************************/
 #include <iostream>
-#include <set>
 #include <vector>
-
 using namespace std;
+
 
 
 template<typename TReturnType, typename... TParams>
@@ -19,18 +21,18 @@ public:
 		return (*m_pfnCallback)(m_pObj, paramList ...);
 	}
 
-	bool operator==(const Delegate p_other)const
+	bool operator==(const Delegate* pOther)const
 	{
-		return (m_pObj == this->m_pObj) && (m_pfnCallback == this->m_pfnCallback);
+		return (this->m_pObj == pOther->m_pObj) && (this->m_pfnCallback == pOther->m_pfnCallback;);
 	}
-	
+
 	void Call(TParams... paramList)
 	{
 		(*m_pfnCallback)(m_pObj, paramList ...);
 	}
 
 private:
-	
+
 	Callback m_pfnCallback;
 	void	*m_pObj;
 
@@ -109,38 +111,38 @@ public:
 		}
 	}
 
-	bool operator+=(Delegate<TReturnType, TParams...>& del)
+	void operator+=(Delegate<TReturnType, TParams...>& del)
 	{
-		return Register(del);
+		 Register(del);
 	}
-	bool operator-=(Delegate<TReturnType, TParams...>& del)
+	void operator-=(Delegate<TReturnType, TParams...>& del)
 	{
-		return Unregister(del);
+		 Unregister(del);
 	}
-	bool Register(Delegate<TReturnType, TParams...>& del)
+	void Register(Delegate<TReturnType, TParams...>& del)
 	{
-		m_observers.push_back(del); return 1;
+		m_observers.push_back(del); 
 	}
-	bool Unregister(Delegate<TReturnType, TParams...>& del)
+	void Unregister(Delegate<TReturnType, TParams...>& del)
 	{
-		m_observers.erase(del); return 1;
+		m_observers.erase(del); 
 	}
 private:
 	std::vector<Delegate<TReturnType, TParams...>>m_observers;
-
 };
+
 class ClassTest
 {
 public:
 	int test_foo(int x)
 	{
-		printf("%d\n",x*x);
+		printf("%d\n", x*x);
 		return x*x;
 	}
 	int test_foo1(int x)
 	{
-		printf("%d\n", x+x);
-		return x+x;
+		printf("%d\n", x + x);
+		return x + x;
 	}
 	int bar(int x, int y, char a)
 	{
@@ -161,6 +163,5 @@ void main(void)
 	auto d2 = MulticastDelegate<int, int>();
 	d2 += DELEGATE_FOR_MEMBERS(&ClassTest::test_foo, &temp);
 	d2 += d;
-
 	d2(4);
 }
