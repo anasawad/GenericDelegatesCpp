@@ -21,9 +21,9 @@ public:
 		return (*m_pfnCallback)(m_pObj, paramList ...);
 	}
 
-	bool operator==(const Delegate* pOther)const
+	bool operator==(const Delegate& pOther)const
 	{
-		return (this->m_pObj == pOther->m_pObj) && (this->m_pfnCallback == pOther->m_pfnCallback;);
+		return (this->m_pObj == pOther.m_pObj) && (this->m_pfnCallback == pOther.m_pfnCallback);
 	}
 
 	void Call(TParams... paramList)
@@ -148,6 +148,7 @@ public:
 	{
 		return a == 'a' ? x + y : x*y;
 	}
+
 };
 
 int Free_Function(int x)
@@ -159,9 +160,18 @@ void main(void)
 {
 	ClassTest temp;
 	ClassTest temp1;
+	
+
 	auto d = DELEGATE_FOR_MEMBERS(&ClassTest::test_foo, &temp);
-	auto d2 = MulticastDelegate<int, int>();
-	d2 += DELEGATE_FOR_MEMBERS(&ClassTest::test_foo, &temp);
-	d2 += d;
-	d2(4);
+	
+	auto d2 = DELEGATE_FOR_MEMBERS(&ClassTest::test_foo, &temp);
+
+	auto d3 = MulticastDelegate<int, int>();
+	d3 += DELEGATE_FOR_MEMBERS(&ClassTest::test_foo, &temp);
+	if (d == d2)
+	{
+		printf("Yes");
+	}
+	
+	d3(4);
 }
